@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador Regressivo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>    
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #ffffff;
+      color: #37352F;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #timer {
+      display: flex;
+      flex-direction: row;
+      text-transform: uppercase;
+      font-size: .7em;
+      letter-spacing: 5px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .dias,
+    .horas,
+    .minutos,
+    .segundos {
+      padding: 20px 10px;
+    }
+
+    .numeros {
+      font-weight: bold;
+      font-size: 3em;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="timer">
+      <div class="dias">
+        <div id="dias" class="numeros"></div>
+        dias
+      </div>
+      <div class="horas">
+        <div id="horas" class="numeros"></div>
+        horas
+      </div>
+      <div class="minutos">
+        <div id="minutos" class="numeros"></div>
+        minutos
+      </div>
+      <div class="segundos">
+        <div id="segundos" class="numeros"></div>
+        segundos
+      </div>
+  </div>
+</body>
+<script>
+  const minhaData = new Date('2024-12-28T02:30:00.000Z');
+  const dataInicial = moment(minhaData);
+  
+  function padLeft(num) {
+    return String(num).padStart(2, '0');
+  }
+
+  function updateTimer() {
+    const hoje = moment();
+    let diff = moment.duration(dataInicial.diff(hoje));
+    
+    if (diff.asSeconds() <= 0) {
+      clearInterval(intervalId);
+      document.getElementById("timer").innerHTML = "Contagem regressiva terminou!";
+      confetti();
+      return;
+    }
+
+    const dias = padLeft(Math.floor(diff.asDays()));
+    const horas = padLeft(Math.floor(diff.hours()));
+    const minutos = padLeft(Math.floor(diff.minutes()));
+    const segundos = padLeft(Math.floor(diff.seconds()));
+
+    document.getElementById("dias").innerHTML = dias;
+    document.getElementById("horas").innerHTML = horas;
+    document.getElementById("minutos").innerHTML = minutos;
+    document.getElementById("segundos").innerHTML = segundos;
+  }
+
+  const intervalId = setInterval(updateTimer, 1000);
+</script>
+</html>
