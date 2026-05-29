@@ -13,119 +13,146 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
-      min-height: 100vh;
+      width: 100%;
+      min-height: 100%;
       background-color: #ffffff;
       color: #37352F;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-family: 'Courier New', Courier, monospace;
+      overflow: hidden;
+    }
+
+    body {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
-      overflow-x: hidden;
     }
 
     .countdown-widget {
       width: 100%;
       max-width: 760px;
-      padding: 14px 16px 16px;
+      padding: 18px 20px;
       text-align: center;
     }
 
+    .trip-header {
+      margin-bottom: 18px;
+    }
+
     .trip-kicker {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.8px;
+      letter-spacing: 2.6px;
       color: #9B6A1F;
       margin-bottom: 6px;
     }
 
     .trip-date {
-      font-size: 1.1rem;
-      font-weight: 750;
-      line-height: 1.2;
-      letter-spacing: -0.03em;
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
       color: #37352F;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .trip-details {
-      font-size: 0.78rem;
+      font-size: 0.9rem;
       color: #666;
       line-height: 1.25;
-      margin-bottom: 16px;
     }
 
     #timer {
-      display: grid;
-      grid-template-columns: repeat(4, auto);
+      display: flex;
+      align-items: flex-end;
       justify-content: center;
-      align-items: baseline;
-      gap: 24px;
-      padding-top: 12px;
+      gap: 28px;
+      padding-top: 18px;
       border-top: 1px solid #eeeeee;
       text-transform: uppercase;
     }
 
     .time-block {
       text-align: center;
-      min-width: 52px;
+      min-width: 68px;
     }
 
     .numeros {
       font-weight: 800;
-      font-size: 2rem;
-      line-height: 1;
-      letter-spacing: -0.06em;
+      font-size: 2.85rem;
+      line-height: 0.95;
+      letter-spacing: -0.08em;
       color: #37352F;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
 
     .label {
-      font-size: 0.58rem;
+      font-size: 0.66rem;
       font-weight: 700;
       color: #666;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
     }
 
     .ended {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-top: 14px;
-      padding-top: 12px;
+      display: none;
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-top: 18px;
+      padding-top: 18px;
       border-top: 1px solid #eeeeee;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
       .countdown-widget {
-        padding: 12px;
+        padding: 16px 12px;
       }
 
       .trip-kicker {
-        font-size: 0.68rem;
-        letter-spacing: 1.5px;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
       }
 
       .trip-date {
-        font-size: 0.98rem;
+        font-size: 1.12rem;
       }
 
       .trip-details {
-        font-size: 0.72rem;
-        margin-bottom: 14px;
+        font-size: 0.78rem;
       }
 
       #timer {
-        gap: 14px;
+        gap: 16px;
+        padding-top: 16px;
       }
 
       .time-block {
-        min-width: 42px;
+        min-width: 52px;
       }
 
       .numeros {
-        font-size: 1.55rem;
+        font-size: 2.1rem;
+      }
+
+      .label {
+        font-size: 0.55rem;
+        letter-spacing: 2px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      #timer {
+        gap: 10px;
+      }
+
+      .time-block {
+        min-width: 44px;
+      }
+
+      .numeros {
+        font-size: 1.75rem;
       }
 
       .label {
@@ -138,14 +165,16 @@
 
 <body>
   <div class="countdown-widget">
-    <div class="trip-kicker">Próxima viagem · Itália</div>
+    <div class="trip-header">
+      <div class="trip-kicker">Próxima viagem · Itália</div>
 
-    <div class="trip-date">
-      12 a 19 de abril de 2027
-    </div>
+      <div class="trip-date">
+        12 a 19 de abril de 2027
+      </div>
 
-    <div class="trip-details">
-      6 noites de hospedagem + 1 noite de voo
+      <div class="trip-details">
+        6 noites de hospedagem + 1 noite de voo
+      </div>
     </div>
 
     <div id="timer">
@@ -189,7 +218,9 @@
         clearInterval(intervalId);
 
         document.getElementById("timer").style.display = "none";
-        document.getElementById("ended-message").innerHTML = "A viagem começou! ✈️";
+        const endedMessage = document.getElementById("ended-message");
+        endedMessage.style.display = "block";
+        endedMessage.innerHTML = "A viagem começou! ✈️";
 
         confetti({
           particleCount: 140,
@@ -200,15 +231,10 @@
         return;
       }
 
-      const dias = padLeft(Math.floor(diff.asDays()));
-      const horas = padLeft(Math.floor(diff.hours()));
-      const minutos = padLeft(Math.floor(diff.minutes()));
-      const segundos = padLeft(Math.floor(diff.seconds()));
-
-      document.getElementById("dias").innerHTML = dias;
-      document.getElementById("horas").innerHTML = horas;
-      document.getElementById("minutos").innerHTML = minutos;
-      document.getElementById("segundos").innerHTML = segundos;
+      document.getElementById("dias").innerHTML = padLeft(Math.floor(diff.asDays()));
+      document.getElementById("horas").innerHTML = padLeft(Math.floor(diff.hours()));
+      document.getElementById("minutos").innerHTML = padLeft(Math.floor(diff.minutes()));
+      document.getElementById("segundos").innerHTML = padLeft(Math.floor(diff.seconds()));
     }
 
     updateTimer();
