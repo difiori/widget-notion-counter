@@ -13,11 +13,14 @@
       box-sizing: border-box;
     }
 
+    html {
+      font-size: 18px;
+    }
+
     html,
     body {
       margin: 0;
       width: 100%;
-      min-height: 100%;
       background-color: #ffffff;
       color: #37352F;
       font-family: 'Courier New', Courier, monospace;
@@ -26,14 +29,14 @@
 
     body {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
     }
 
     .countdown-widget {
       width: 100%;
-      max-width: 760px;
-      padding: 18px 20px;
+      max-width: none;
+      padding: 22px 28px;
       text-align: center;
     }
 
@@ -42,47 +45,48 @@
     }
 
     .trip-kicker {
-      font-size: 0.78rem;
+      font-size: 0.9rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 2.6px;
+      letter-spacing: 2.4px;
       color: #9B6A1F;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .trip-date {
-      font-size: 1.35rem;
+      font-size: 1.55rem;
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -0.04em;
       color: #37352F;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .trip-details {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #666;
       line-height: 1.25;
+      margin-bottom: 18px;
     }
 
     #timer {
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      gap: 28px;
-      padding-top: 18px;
+      gap: 34px;
+      padding-top: 20px;
       border-top: 1px solid #eeeeee;
       text-transform: uppercase;
     }
 
     .time-block {
       text-align: center;
-      min-width: 68px;
+      min-width: 72px;
     }
 
     .numeros {
       font-weight: 800;
-      font-size: 2.85rem;
+      font-size: 3.25rem;
       line-height: 0.95;
       letter-spacing: -0.08em;
       color: #37352F;
@@ -90,7 +94,7 @@
     }
 
     .label {
-      font-size: 0.66rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #666;
       letter-spacing: 3px;
@@ -98,7 +102,7 @@
 
     .ended {
       display: none;
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 800;
       margin-top: 18px;
       padding-top: 18px;
@@ -106,45 +110,57 @@
     }
 
     @media (max-width: 700px) {
+      html {
+        font-size: 16px;
+      }
+
       .countdown-widget {
-        padding: 16px 12px;
+        padding: 18px 16px;
       }
 
       .trip-kicker {
-        font-size: 0.7rem;
+        font-size: 0.78rem;
         letter-spacing: 2px;
       }
 
       .trip-date {
-        font-size: 1.12rem;
+        font-size: 1.25rem;
       }
 
       .trip-details {
-        font-size: 0.78rem;
+        font-size: 0.88rem;
       }
 
       #timer {
-        gap: 16px;
-        padding-top: 16px;
+        gap: 18px;
+        padding-top: 18px;
       }
 
       .time-block {
-        min-width: 52px;
+        min-width: 54px;
       }
 
       .numeros {
-        font-size: 2.1rem;
+        font-size: 2.35rem;
       }
 
       .label {
-        font-size: 0.55rem;
+        font-size: 0.58rem;
         letter-spacing: 2px;
       }
     }
 
     @media (max-width: 430px) {
+      html {
+        font-size: 15px;
+      }
+
+      .countdown-widget {
+        padding: 16px 12px;
+      }
+
       #timer {
-        gap: 10px;
+        gap: 12px;
       }
 
       .time-block {
@@ -152,11 +168,11 @@
       }
 
       .numeros {
-        font-size: 1.75rem;
+        font-size: 1.9rem;
       }
 
       .label {
-        font-size: 0.5rem;
+        font-size: 0.52rem;
         letter-spacing: 1.4px;
       }
     }
@@ -218,6 +234,7 @@
         clearInterval(intervalId);
 
         document.getElementById("timer").style.display = "none";
+
         const endedMessage = document.getElementById("ended-message");
         endedMessage.style.display = "block";
         endedMessage.innerHTML = "A viagem começou! ✈️";
