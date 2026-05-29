@@ -20,107 +20,117 @@
       color: #37352F;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
+      overflow-x: hidden;
     }
 
     .countdown-widget {
       width: 100%;
       max-width: 760px;
-      padding: 22px 18px;
+      padding: 14px 16px 16px;
       text-align: center;
     }
 
-    .trip-label {
-      font-size: 0.78rem;
+    .trip-kicker {
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.8px;
       color: #9B6A1F;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .trip-date {
-      font-size: 1.45rem;
+      font-size: 1.1rem;
       font-weight: 750;
-      line-height: 1.15;
-      margin-bottom: 6px;
+      line-height: 1.2;
       letter-spacing: -0.03em;
+      color: #37352F;
+      margin-bottom: 4px;
     }
 
     .trip-details {
-      font-size: 0.9rem;
+      font-size: 0.78rem;
       color: #666;
-      margin-bottom: 22px;
-      line-height: 1.4;
+      line-height: 1.25;
+      margin-bottom: 16px;
     }
 
     #timer {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(4, auto);
+      justify-content: center;
+      align-items: baseline;
+      gap: 24px;
+      padding-top: 12px;
+      border-top: 1px solid #eeeeee;
       text-transform: uppercase;
-      letter-spacing: 2.5px;
-      text-align: center;
     }
 
     .time-block {
-      padding: 14px 8px;
-      border: 1px solid #eeeeee;
-      border-radius: 14px;
-      background: #fafafa;
+      text-align: center;
+      min-width: 52px;
     }
 
     .numeros {
       font-weight: 800;
-      font-size: 2.35rem;
+      font-size: 2rem;
       line-height: 1;
       letter-spacing: -0.06em;
-      margin-bottom: 8px;
+      color: #37352F;
+      margin-bottom: 5px;
     }
 
     .label {
-      font-size: 0.65rem;
+      font-size: 0.58rem;
       font-weight: 700;
       color: #666;
+      letter-spacing: 2px;
     }
 
     .ended {
-      font-size: 1.3rem;
+      font-size: 1rem;
       font-weight: 700;
-      margin-top: 16px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid #eeeeee;
     }
 
     @media (max-width: 600px) {
       .countdown-widget {
-        padding: 18px 12px;
+        padding: 12px;
+      }
+
+      .trip-kicker {
+        font-size: 0.68rem;
+        letter-spacing: 1.5px;
       }
 
       .trip-date {
-        font-size: 1.2rem;
+        font-size: 0.98rem;
       }
 
       .trip-details {
-        font-size: 0.8rem;
-        margin-bottom: 16px;
+        font-size: 0.72rem;
+        margin-bottom: 14px;
       }
 
       #timer {
-        gap: 8px;
+        gap: 14px;
       }
 
       .time-block {
-        padding: 12px 6px;
-        border-radius: 12px;
+        min-width: 42px;
       }
 
       .numeros {
-        font-size: 1.75rem;
+        font-size: 1.55rem;
       }
 
       .label {
-        font-size: 0.56rem;
-        letter-spacing: 1.5px;
+        font-size: 0.5rem;
+        letter-spacing: 1.4px;
       }
     }
   </style>
@@ -128,10 +138,10 @@
 
 <body>
   <div class="countdown-widget">
-    <div class="trip-label">Próxima viagem</div>
+    <div class="trip-kicker">Próxima viagem · Itália</div>
 
     <div class="trip-date">
-      Itália · 12 a 19 de abril de 2027
+      12 a 19 de abril de 2027
     </div>
 
     <div class="trip-details">
@@ -151,12 +161,12 @@
 
       <div class="time-block">
         <div id="minutos" class="numeros">--</div>
-        <div class="label">minutos</div>
+        <div class="label">min</div>
       </div>
 
       <div class="time-block">
         <div id="segundos" class="numeros">--</div>
-        <div class="label">segundos</div>
+        <div class="label">seg</div>
       </div>
     </div>
 
