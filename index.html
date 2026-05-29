@@ -4,69 +4,163 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contador Regressivo</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>    
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #ffffff;
       color: #37352F;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
+    }
+
+    .countdown-widget {
+      width: 100%;
+      max-width: 760px;
+      padding: 22px 18px;
+      text-align: center;
+    }
+
+    .trip-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #9B6A1F;
+      margin-bottom: 8px;
+    }
+
+    .trip-date {
+      font-size: 1.45rem;
+      font-weight: 750;
+      line-height: 1.15;
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+    }
+
+    .trip-details {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 22px;
+      line-height: 1.4;
     }
 
     #timer {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
       text-transform: uppercase;
-      font-size: .7em;
-      letter-spacing: 5px;
-      align-items: center;
-      justify-content: center;
+      letter-spacing: 2.5px;
       text-align: center;
     }
 
-    .dias,
-    .horas,
-    .minutos,
-    .segundos {
-      padding: 20px 10px;
+    .time-block {
+      padding: 14px 8px;
+      border: 1px solid #eeeeee;
+      border-radius: 14px;
+      background: #fafafa;
     }
 
     .numeros {
-      font-weight: bold;
-      font-size: 3em;
-      text-align: center;
+      font-weight: 800;
+      font-size: 2.35rem;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #666;
+    }
+
+    .ended {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .countdown-widget {
+        padding: 18px 12px;
+      }
+
+      .trip-date {
+        font-size: 1.2rem;
+      }
+
+      .trip-details {
+        font-size: 0.8rem;
+        margin-bottom: 16px;
+      }
+
+      #timer {
+        gap: 8px;
+      }
+
+      .time-block {
+        padding: 12px 6px;
+        border-radius: 12px;
+      }
+
+      .numeros {
+        font-size: 1.75rem;
+      }
+
+      .label {
+        font-size: 0.56rem;
+        letter-spacing: 1.5px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div id="timer">
-    <div class="dias">
-      <div id="dias" class="numeros"></div>
-      dias
+  <div class="countdown-widget">
+    <div class="trip-label">Próxima viagem</div>
+
+    <div class="trip-date">
+      Itália · 12 a 19 de abril de 2027
     </div>
 
-    <div class="horas">
-      <div id="horas" class="numeros"></div>
-      horas
+    <div class="trip-details">
+      6 noites de hospedagem + 1 noite de voo
     </div>
 
-    <div class="minutos">
-      <div id="minutos" class="numeros"></div>
-      minutos
+    <div id="timer">
+      <div class="time-block">
+        <div id="dias" class="numeros">--</div>
+        <div class="label">dias</div>
+      </div>
+
+      <div class="time-block">
+        <div id="horas" class="numeros">--</div>
+        <div class="label">horas</div>
+      </div>
+
+      <div class="time-block">
+        <div id="minutos" class="numeros">--</div>
+        <div class="label">minutos</div>
+      </div>
+
+      <div class="time-block">
+        <div id="segundos" class="numeros">--</div>
+        <div class="label">segundos</div>
+      </div>
     </div>
 
-    <div class="segundos">
-      <div id="segundos" class="numeros"></div>
-      segundos
-    </div>
+    <div id="ended-message" class="ended"></div>
   </div>
 
   <script>
@@ -83,8 +177,16 @@
 
       if (diff.asSeconds() <= 0) {
         clearInterval(intervalId);
-        document.getElementById("timer").innerHTML = "Contagem regressiva terminou!";
-        confetti();
+
+        document.getElementById("timer").style.display = "none";
+        document.getElementById("ended-message").innerHTML = "A viagem começou! ✈️";
+
+        confetti({
+          particleCount: 140,
+          spread: 90,
+          origin: { y: 0.65 }
+        });
+
         return;
       }
 
